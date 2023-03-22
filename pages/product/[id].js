@@ -6,6 +6,7 @@ import { Disclosure, RadioGroup, Tab } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { HeartIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { CartContext } from "../../context/cartContext";
+import Head from "next/head";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -51,6 +52,10 @@ export default function Products({ categories, productinfo }) {
 
   return (
     <>
+      <Head>
+        <title>{product.name} | Hydronaut</title>
+        <meta name="description" content={product.description} />
+      </Head>
       <Header categories={categories} />
       <div className="bg-ow">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">

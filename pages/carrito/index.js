@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header.component'
 import Footer from '../../components/Footer.component'
 import { CheckIcon, ClockIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import Head from 'next/head'
 
 export default function Carrito({categories}) {
     const [cart, setCart] = useState(null);
@@ -43,6 +44,10 @@ export default function Carrito({categories}) {
 
     return (
         <>
+        <Head>
+            <title>Carrito de compras | Hydronaut</title>
+            <meta name="description" content="Carrito de compras de Hydronaut." />
+        </Head>
         <Header categories={categories} />
         <div className="bg-ow">
       <div className="mx-auto max-w-2xl px-4 pt-16 pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
