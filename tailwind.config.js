@@ -9,8 +9,17 @@ module.exports = {
     extend: {
       colors: {
         ow: "#F7F9F9",
-      }
+        mygray: "#E2E2E2",
+        myblack: "#090E07",
+      },
+      spacing: {
+        grid: "calc(100vw - 12rem)",
+        sgrid: "calc(100vw - 3rem)",
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
+  ],
 }
