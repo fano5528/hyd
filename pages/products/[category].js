@@ -34,11 +34,11 @@ export default function Products({ categories, products, category }) {
 }
 
 export async function getServerSideProps({params}) {
-  const categories = await fetch("http://localhost:3000/api/categories");
+  const categories = await fetch("https://hydronaut.mx/api/categories");
   const categoriesJson = await categories.json();
-  const products = await fetch("http://localhost:3000/api/products/"+params.category);
+  const products = await fetch("https://hydronaut.mx/api/products/"+params.category);
   const productsJson = await products.json();
-  const category = await fetch("http://localhost:3000/api/category/"+params.category);
+  const category = await fetch("https://hydronaut.mx/api/category/"+params.category);
   const categoryJson = await category.json();
   return { props: { categories: categoriesJson, products: productsJson, category: categoryJson } };
 }

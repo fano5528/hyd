@@ -34,9 +34,9 @@ export default function Products({ categories, products }) {
 }
 
 export async function getServerSideProps() {
-  const categories = await fetch("http://localhost:3000/api/categories");
+  const categories = await fetch("https://hydronaut.mx/api/categories");
   const categoriesJson = await categories.json();
-  const products = await fetch("http://localhost:3000/api/products");
+  const products = await fetch("https://hydronaut.mx/api/products");
   const productsJson = await products.json();
   return { props: { categories: categoriesJson, products: productsJson } };
 }

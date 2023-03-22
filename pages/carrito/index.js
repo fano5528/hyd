@@ -14,7 +14,7 @@ export default function Carrito({categories}) {
         setCart(JSON.parse(localStorage.cart))
         let total = 0
         for (let i = 0; i < products.length; i++) {
-            fetch(`http://localhost:3000/api/product/${products[i].id}`)
+            fetch(`https://hydronaut.mx/api/product/${products[i].id}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -165,7 +165,7 @@ export default function Carrito({categories}) {
 }
 
 export async function getServerSideProps() {
-    const categories = await fetch("http://localhost:3000/api/categories");
+    const categories = await fetch("https://hydronaut.mx/api/categories");
     const categoriesJson = await categories.json();
     return { props: { categories: categoriesJson } };
   }
