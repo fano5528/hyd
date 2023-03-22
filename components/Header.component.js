@@ -12,6 +12,7 @@ import {
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import { ShoppingCartIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
+import Link from 'next/link'
 
 
 function classNames(...classes) {
@@ -27,10 +28,10 @@ export default function Header(props) {
     <header className="bg-ow mt-10 mx-auto w-sgrid sm:w-grid">
       <nav className="mx-auto flex max-w-7xl items-center justify-between" aria-label="Global">
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img className="h-8 w-auto" src="/logo.png" alt="" />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -66,10 +67,10 @@ export default function Header(props) {
                       className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-100"
                     >
                       <div className="flex-auto">
-                        <a href={`/products/${item.id}`} className="block font-semibold text-gray-900">
+                        <Link href={`/products/${item.id}`} className="block font-semibold text-gray-900">
                           {item.name}
                           <span className="absolute inset-0" />
-                        </a>
+                        </Link>
                         <p className="mt-1 text-gray-600">{item.description}</p>
                       </div>
                     </div>
@@ -79,29 +80,29 @@ export default function Header(props) {
             </Transition>
           </Popover>
 
-          <a href="/acerca-de" className="hover:opacity-60 text-md font-medium leading-6 text-gray-900">
+          <Link href="/acerca-de" className="hover:opacity-60 text-md font-medium leading-6 text-gray-900">
             acerca de
-          </a>
-          <a href="/contacto" className="hover:opacity-60 text-md font-medium leading-6 text-gray-900">
+          </Link>
+          <Link href="/contacto" className="hover:opacity-60 text-md font-medium leading-6 text-gray-900">
             contacto
-          </a>
-          <a href="/carrito" className="hover:opacity-60 text-md font-medium leading-6 text-gray-900">
+          </Link>
+          <Link href="/carrito" className="hover:opacity-60 text-md font-medium leading-6 text-gray-900">
             <ShoppingCartIcon className="h-6"/>
-          </a>
+          </Link>
         </Popover.Group>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-ow px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="/" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Hydronaut</span>
               <img
                 className="h-8 w-auto"
                 src="/icon.png"
                 alt=""
               />
-            </a>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -139,18 +140,18 @@ export default function Header(props) {
                     </>
                   )}
                 </Disclosure>
-                <a
+                <Link
                   href="/acerca-de"
                   className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100"
                 >
                   acerca de
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/contacto"
                   className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100"
                 >
                   contacto
-                </a>
+                </Link>
               </div>
             </div>
           </div>

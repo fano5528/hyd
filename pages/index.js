@@ -3,6 +3,7 @@ import { ArrowPathIcon, CalendarIcon, TruckIcon } from '@heroicons/react/24/outl
 import Footer from '../components/Footer.component'
 import Card from '../components/Card.component'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 const perks = [
   { name: '1 año de garantía', description: 'Si no funciona, lo cambiamos.', icon: CalendarIcon },
@@ -19,10 +20,10 @@ export default function Home({categories}) {
       <div className="mx-auto max-w-7xl mt-12 sm:mt-20">
         <div className="sm:flex sm:items-baseline sm:justify-between">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">Shop by Category</h2>
-          <a href="#" className="hidden text-sm font-semibold text-myblack hover:opacity-50 sm:block">
+          <Link href="#" className="hidden text-sm font-semibold text-myblack hover:opacity-50 sm:block">
             Browse all categories
             <span aria-hidden="true"> &rarr;</span>
-          </a>
+          </Link>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
@@ -36,10 +37,10 @@ export default function Home({categories}) {
             <div className="flex items-end p-6">
               <div>
                 <h3 className="font-semibold text-xl text-white">
-                  <a href="#">
+                  <Link href="#">
                     <span className="absolute inset-0" />
                     New Arrivals
-                  </a>
+                  </Link>
                 </h3>
                 <p aria-hidden="true" className="mt-1 text-sm text-white">
                   Shop now
@@ -60,10 +61,10 @@ export default function Home({categories}) {
             <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
                 <h3 className="font-semibold text-white text-xl">
-                  <a href="#">
+                  <Link href="#">
                     <span className="absolute inset-0" />
                     Accessories
-                  </a>
+                  </Link>
                 </h3>
                 <p aria-hidden="true" className="mt-1 text-sm text-white">
                   Shop now
@@ -84,10 +85,10 @@ export default function Home({categories}) {
             <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
                 <h3 className="font-semibold text-white text-xl">
-                  <a href="#">
+                  <Link href="#">
                     <span className="absolute inset-0" />
                     Workspace
-                  </a>
+                  </Link>
                 </h3>
                 <p aria-hidden="true" className="mt-1 text-sm text-white">
                   Shop now
@@ -98,10 +99,10 @@ export default function Home({categories}) {
         </div>
 
         <div className="mt-6 sm:hidden">
-          <a href="#" className="block text-sm font-semibold text-myblack hover:opacity-50">
+          <Link href="#" className="block text-sm font-semibold text-myblack hover:opacity-50">
             Browse all categories
             <span aria-hidden="true"> &rarr;</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
@@ -127,10 +128,10 @@ export default function Home({categories}) {
       <Card img="/foco.jpg" name="Foco más vendido 1" price="499" id="test"/>
       <Card img="/foco.jpg" name="Foco más vendido 1" price="499" id="foco-perron"/>
     </div>
-    <a href="/products" className="flex items-center justify-center bg-myblack text-ow mx-auto block w-64 py-4 text-lg text-center rounded-xl mt-6 sm:mt-10 hover:opacity-60">
+    <Link href="/products" className="flex items-center justify-center bg-myblack text-ow mx-auto block w-64 py-4 text-lg text-center rounded-xl mt-6 sm:mt-10 hover:opacity-60">
       ver todos los focos
       <ArrowRightIcon className="h-6 ml-2"/>
-    </a>
+    </Link>
     <Footer />
     </>
   )
