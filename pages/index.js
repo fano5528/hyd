@@ -138,7 +138,7 @@ export default function Home({categories}) {
 }
 
 export async function getServerSideProps() {
-  const categories = await fetch('http://localhost:3000/api/categories')
+  const categories = await fetch('https://hydronaut.mx/api/categories')
   const categoriesJson = await categories.json()
   return {props: {categories: categoriesJson}}
 }
