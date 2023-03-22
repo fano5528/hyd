@@ -4,6 +4,7 @@ import Footer from '../components/Footer.component'
 import Card from '../components/Card.component'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
+import Head from 'next/head'
 
 const perks = [
   { name: '1 año de garantía', description: 'Si no funciona, lo cambiamos.', icon: CalendarIcon },
@@ -14,14 +15,18 @@ const perks = [
 export default function Home({categories}) {
   return (
     <>
+      <Head>
+        <title>Hydronaut | Home</title>
+        <meta name="description" content="Hydronaut es la primer tienda en México dedicada a la venta de focos para cultivos en interiores." />
+      </Head>
     <Header categories={categories}/>
     <div className="bg-mygray w-sgrid sm:w-grid h-[425px] mx-auto rounded-3xl mt-12 sm:mt-16"></div>
     <div className="w-sgrid sm:w-grid mx-auto">
       <div className="mx-auto max-w-7xl mt-12 sm:mt-20">
         <div className="sm:flex sm:items-baseline sm:justify-between">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">Shop by Category</h2>
-          <Link href="#" className="hidden text-sm font-semibold text-myblack hover:opacity-50 sm:block">
-            Browse all categories
+          <Link href="/products" className="hidden text-sm font-semibold text-myblack hover:opacity-50 sm:block">
+            ver todos los focos
             <span aria-hidden="true"> &rarr;</span>
           </Link>
         </div>
@@ -99,8 +104,8 @@ export default function Home({categories}) {
         </div>
 
         <div className="mt-6 sm:hidden">
-          <Link href="#" className="block text-sm font-semibold text-myblack hover:opacity-50">
-            Browse all categories
+          <Link href="/products" className="block text-sm font-semibold text-myblack hover:opacity-50">
+            ver todos los focos
             <span aria-hidden="true"> &rarr;</span>
           </Link>
         </div>

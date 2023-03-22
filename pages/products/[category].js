@@ -1,11 +1,16 @@
 import Header from "../../components/Header.component";
 import Card from "../../components/Card.component";
 import Footer from "../../components/Footer.component";
+import Head from "next/head";
 
 export default function Products({ categories, products, category }) {
     console.log(products)
   return (
     <>
+      <Head>
+        <title>{category[0].name} | Hydronaut</title>
+        <meta name="description" content={category[0].description} />
+      </Head>
       <Header categories={categories} />
       <div className="bg-myblack mt-12 sm:mt-20 py-24 sm:py-40 w-sgrid sm:w-grid mx-auto rounded-3xl px-4">
         <div className="mx-auto max-w-2xl text-center">
