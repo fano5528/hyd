@@ -8,8 +8,8 @@ export default async function handler(req,res) {
         cart.push({price: eval(`body.id${i}`), quantity: eval(`body.quantity${i}`)})
     }*/
     const session = await stripe.checkout.sessions.create({
-        success_url: 'http://localhost:3000',
-        cancel_url: 'http://localhost:3000/carrito',
+        success_url: 'https://hydronaut.mx',
+        cancel_url: 'https://hydronaut.mx/carrito',
         line_items: [
             {
                 price: 'price_1Mp388J8K7osZc8AWKgqecR6',
