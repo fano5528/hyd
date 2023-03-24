@@ -23,7 +23,7 @@ export default async function handler(req,res) {
     for(let i = 0; i < amount; i++) {
         cart[products[i].price.id] = products[i].quantity
         let lastStock = Product.findOne({ _id: products[i].price.id })
-        Product.findOneAndUpdate({ _id: products[i].price.id }, { stock: lastStock.stock - products[i].quantity })
+        Product.findOneAndUpdate({ _id: products[i].price.id }, { inventory: lastStock.inventory - products[i].quantity })
         names[products[i].description] = products[i].quantity
         message += products[i].quantity + 'x '+ products[i].description + '\n'
     }
