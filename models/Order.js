@@ -29,6 +29,10 @@ const orderSchema = new mongoose.Schema({
     products: {
         type: Array,
         required: true,
+    },
+    productNames: {
+        type: Array,
+        required: true,
     }
 });
 
