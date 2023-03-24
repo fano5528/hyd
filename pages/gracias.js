@@ -1,5 +1,6 @@
 import Header from "../components/Header.component";
 import Footer from "../components/Footer.component";
+import Head from "next/head";
 
 export default function Gracias({categories}) {
     return (
