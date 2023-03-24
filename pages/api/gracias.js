@@ -12,9 +12,6 @@ export default async function handler(req,res) {
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id, {
         expand: ['line_items'],
         })
-    console.log(session)
-    console.log(session.line_items.data)
-    console.log(typeof session.id)
     const products = session.line_items.data
     const amount = products.length
     let cart = {}
@@ -22,8 +19,10 @@ export default async function handler(req,res) {
     let message = ''
     for(let i = 0; i < amount; i++) {
         cart[products[i].price.id] = products[i].quantity
-        let lastStock = Product.findOne({ _id: products[i].price.id })
-        Product.findOneAndUpdate({ _id: products[i].price.id }, { inventory: lastStock.inventory - products[i].quantity })
+        let lastStock = await Product.findOne({ id: products[i].price.id })
+        console.log(lastStock)
+        const response = await Product.findOneAndUpdate({ id: products[i].price.id }, { inventory: lastStock.inventory - products[i].quantity })
+        console.log(response)
         names[products[i].description] = products[i].quantity
         message += products[i].quantity + 'x '+ products[i].description + '\n'
     }
@@ -51,7 +50,7 @@ export default async function handler(req,res) {
         text: 'Para enviar: \n' + message + '\n\n' + 'Nombre: ' + session.shipping_details.name + '\n' + 'Correo: ' + session.customer_details.email + '\n' + 'Teléfono: ' + session.customer_details.phone + '\n' + 'Calle y número: ' + session.shipping_details.address.line1 + '\n' + 'Código Postal: ' + session.shipping_details.address.postal_code + '\n' + 'Estado: ' + session.shipping_details.address.state + '\n' + 'Ciudad: ' + session.shipping_details.address.city + '\n' + 'Colonia: ' + session.shipping_details.address.line2  + '\n\n' + 'Total: $' + session.amount_total/100,
     }
 
-    sgMail.send(msg)
-    sgMail.send(msg2)
+    //sgMail.send(msg)
+    //sgMail.send(msg2)
     res.status(200).redirect('https://hydronaut.mx/gracias')
 }

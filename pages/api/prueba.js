@@ -1,13 +1,11 @@
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import { dbConnect } from '@/lib/dbConnect';
+import Order from '@/models/Order';
+import Product from '@/models/Product';
+
+dbConnect();
 
 export default async function handler(req,res) {
-    const msg = {
-        to: 'jose-alfonso@live.com.mx',
-        from: 'ventas@hydronaut.mx',
-        subject: 'Nuevo pedido',
-        text: 'Nuevo pedido',
-    }
-    sgMail.send(msg)
+    const hola = await Product.findOne({id: "price_1Mp388J8K7osZc8AWKgqecR6"});
+    console.log(hola);
     res.status(200).json({message: 'ok'})
 }
