@@ -96,8 +96,8 @@ export default function Carrito({categories}) {
         <div className="bg-ow">
       <div className="mx-auto max-w-2xl px-4 pt-16 pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Carrito de compras</h1>
-        <form action="/api/pay" className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
-          <input type="hidden" name="data" value={cart.toString()}/>
+        <form method="post" action="/api/pay" className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+          <input type="hidden" value={cart.length} name="length" />
           <section aria-labelledby="cart-heading" className="lg:col-span-7">
             <h2 id="cart-heading" className="sr-only">
               Items in your shopping cart
@@ -105,6 +105,8 @@ export default function Carrito({categories}) {
 
             <ul role="list" className="divide-y divide-gray-200 border-t border-b border-gray-200">
               {cart[0] ? cart.map((product, productIdx) => (
+                <>
+                <input type="hidden" value={product.id} name={`id${productIdx}`} />
                 <li key={product.id} className="flex py-6 sm:py-10">
                   <div className="flex-shrink-0">
                     <img
@@ -128,12 +130,12 @@ export default function Carrito({categories}) {
                       </div>
 
                       <div className="mt-4 sm:mt-0 sm:pr-9">
-                        <label htmlFor={`quantity-${productIdx}`} className="sr-only">
+                        <label htmlFor={`quantity${productIdx}`} className="sr-only">
                           Quantity, {product.name}
                         </label>
                         <select
-                          id={`quantity-${productIdx}`}
-                          name={`quantity-${productIdx}`}
+                          id={`quantity${productIdx}`}
+                          name={`quantity${productIdx}`}
                           className="w-[80px] max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-myblack focus:outline-none focus:ring-1 focus:ring-myblack sm:text-sm"
                         defaultValue={localStorage.cart ? JSON.parse(localStorage.cart)[productIdx].quantity : null}
                             onChange={(e) => handleQuantityChange(e.target.value, productIdx)}
@@ -165,6 +167,7 @@ export default function Carrito({categories}) {
                     </p>
                   </div>
                 </li>
+              </>
               )) : <p className="text-center text-xl font-semibold my-12">No hay productos en el carrito</p>}
             </ul>
           </section>
