@@ -1,5 +1,5 @@
 const Stripe = require('stripe');
-const stripe = Stripe('sk_test_51MgtDbJ8K7osZc8AURKWhwsBvAJKcsECHm70c2APiduYga1r9DlFdNYCR9BRy94zAvS66FL0JCD7i3TsL7QFg63O00ziRwszd1');
+const stripe = Stripe(process.env.STRIPE_KEY);
 
 export default async function handler(req,res) {
     /*const body = req.body
