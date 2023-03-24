@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function Categories() {
     return (
         <footer className="mt-20 bg-myblack pt-12 pb-4 px-10 md:mt-32 sm:px-24">
