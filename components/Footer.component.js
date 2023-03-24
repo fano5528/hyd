@@ -4,9 +4,9 @@ export default function Categories() {
             <div className="flex flex-col items-start sm:flex-row sm:justify-between">
                 <img src="/whitelogo.png" className="h-8 w-auto"/>
                 <ul className="mt-10 sm:mt-0">
-                    <li className="text-right"><a href="/tienda" className="text-ow text-xl hover:underline">tienda</a></li>
-                    <li className="text-right"><a href="/acerca-de" className="text-ow text-xl hover:underline">acerca de</a></li>
-                    <li className="text-right"><a href="/contacto" className="text-ow text-xl hover:underline">contacto</a></li>
+                    <li className="sm:text-right"><a href="/tienda" className="text-ow text-xl hover:underline">tienda</a></li>
+                    <li className="sm:text-right"><a href="/acerca-de" className="text-ow text-xl hover:underline">acerca de</a></li>
+                    <li className="sm:text-right"><a href="/contacto" className="text-ow text-xl hover:underline">contacto</a></li>
                 </ul>
             </div>
             <div className="w-full h-px bg-[#999999] mt-12"></div>

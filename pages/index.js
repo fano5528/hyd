@@ -1,5 +1,5 @@
 import Header from '../components/Header.component'
-import { ArrowPathIcon, CalendarIcon, TruckIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon, ShieldCheckIcon, TruckIcon } from '@heroicons/react/24/outline'
 import Footer from '../components/Footer.component'
 import Card from '../components/Card.component'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 
 const perks = [
-  { name: '1 año de garantía', description: 'Si no funciona, lo cambiamos.', icon: CalendarIcon },
+  { name: 'Productos garantizados', description: 'Si no funciona, lo cambiamos.', icon: ShieldCheckIcon },
   { name: 'Devoluciones gratuitas', description: 'Envíos de vuelta gratis.', icon: ArrowPathIcon },
   { name: 'Envío por nuestra cuenta', description: 'En órdenes mayores a $500.', icon: TruckIcon },
 ]
@@ -20,11 +20,15 @@ export default function Home({categories}) {
         <meta name="description" content="Hydronaut es la primer tienda en México dedicada a la venta de focos para cultivos en interiores." />
       </Head>
     <Header categories={categories}/>
-    <div className="bg-mygray w-sgrid sm:w-grid h-[425px] mx-auto rounded-3xl mt-12 sm:mt-16"></div>
+    <div className="overflow-hidden bg-mygray w-sgrid sm:w-grid h-[375px] sm:h-[525px] mx-auto rounded-3xl mt-12 sm:mt-16 bg-cover bg-center" style={{backgroundImage: "url('/banner.jpg');"}}>
+      <div className="flex w-full h-full bg-[rgba(0,0,0,0.5)] items-center justify-center">
+        <h1 className="text-center text-ow text-2xl md:text-4xl max-w-2xl w-[80vw] leading-normal md:leading-normal font-medium">Nos encargamos de venderte los mejores focos para tu jardín hidropónico.</h1>
+      </div>
+    </div>
     <div className="w-sgrid sm:w-grid mx-auto">
       <div className="mx-auto max-w-7xl mt-12 sm:mt-20">
         <div className="sm:flex sm:items-baseline sm:justify-between">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">Shop by Category</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">Comprar por categoría</h2>
           <Link href="/products" className="hidden text-sm font-semibold text-myblack hover:opacity-50 sm:block">
             ver todos los focos
             <span aria-hidden="true"> &rarr;</span>
@@ -32,9 +36,9 @@ export default function Home({categories}) {
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
-          <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-3xl sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
+          <div className="group aspect-w-3 aspect-h-2 overflow-hidden rounded-3xl sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
             <img
-              src="https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg"
+              src="/versatiles.jpg"
               alt="Two models wearing women's black cotton crewneck tee and off-white cotton crewneck tee."
               className="object-cover object-center group-hover:opacity-75"
             />
@@ -42,20 +46,20 @@ export default function Home({categories}) {
             <div className="flex items-end p-6">
               <div>
                 <h3 className="font-semibold text-xl text-white">
-                  <Link href="#">
+                  <Link href="products/versatiles">
                     <span className="absolute inset-0" />
-                    New Arrivals
+                    Para todo tipo de plantas
                   </Link>
                 </h3>
                 <p aria-hidden="true" className="mt-1 text-sm text-white">
-                  Shop now
+                  ver más
                 </p>
               </div>
             </div>
           </div>
-          <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-3xl sm:aspect-none sm:relative sm:h-full">
+          <div className="group aspect-w-3 aspect-h-2 overflow-hidden rounded-3xl sm:aspect-none sm:relative sm:h-full">
             <img
-              src="https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg"
+              src="/verdes.jpg"
               alt="Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters."
               className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
             />
@@ -66,9 +70,9 @@ export default function Home({categories}) {
             <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
                 <h3 className="font-semibold text-white text-xl">
-                  <Link href="#">
+                  <Link href="products/plantas-verdes">
                     <span className="absolute inset-0" />
-                    Accessories
+                    Para plantas verdes
                   </Link>
                 </h3>
                 <p aria-hidden="true" className="mt-1 text-sm text-white">
@@ -77,9 +81,9 @@ export default function Home({categories}) {
               </div>
             </div>
           </div>
-          <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-3xl sm:aspect-none sm:relative sm:h-full">
+          <div className="group aspect-w-3 aspect-h-2 overflow-hidden rounded-3xl sm:aspect-none sm:relative sm:h-full">
             <img
-              src="https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg"
+              src="/frutas.jpg"
               alt="Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
               className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
             />
@@ -90,9 +94,9 @@ export default function Home({categories}) {
             <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
                 <h3 className="font-semibold text-white text-xl">
-                  <Link href="#">
+                  <Link href="/products/para-frutas">
                     <span className="absolute inset-0" />
-                    Workspace
+                    Para frutas y flores
                   </Link>
                 </h3>
                 <p aria-hidden="true" className="mt-1 text-sm text-white">

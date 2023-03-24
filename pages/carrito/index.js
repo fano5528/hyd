@@ -1,45 +1,89 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header.component'
 import Footer from '../../components/Footer.component'
-import { CheckIcon, ClockIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { CheckIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import Head from 'next/head'
 
 export default function Carrito({categories}) {
-    const [cart, setCart] = useState(null);
+    const [cart, setCart] = useState([]);
     const [productList, setProductList] = useState([]);
     const [total, setTotal] = useState(0);
     const [shipping, setShipping] = useState(0);
+    const [mamaste, setMamaste] = useState(false);
 
     useEffect(() => {
-        let products = JSON.parse(localStorage.cart)
-        setCart(JSON.parse(localStorage.cart))
-        let total = 0
-        for (let i = 0; i < products.length; i++) {
-            fetch(`https://hydronaut.mx/api/product/${products[i].id}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setProductList(prev => [...prev, data[0]])
-                console.log(data[0].price * products[i].quantity)
-                total = total + (data[0].price * products[i].quantity)
-                setTotal(total)
-                setShipping(total>500 ? 0 : 100 )
-            })
+        localStorage.cart ? setCart(JSON.parse(localStorage.cart)) : console.log("No hay productos en el carrito.");
+        if (localStorage.cart) {
+            let total = 0
+            for (let i = 0; i < JSON.parse(localStorage.cart).length; i++) {
+              let product = JSON.parse(localStorage.cart)[i]
+              total = total + (product.price * product.quantity)
+              setTotal(total)
+              setShipping(total>500 ? 0 : 100 )
+              if(product.inventory<product.quantity) {
+                setMamaste(true)
+              }
+            }
+        } else {
+            setTotal(0)
+            setShipping(0)
         }
     }, [])
 
     const handleQuantityChange = (newAmount, productIdx) => {
+      console.log("handlequantitychange")
         const newCart = [...cart];
-        newCart[productIdx].quantity = newAmount;
+        newCart[productIdx].quantity = eval(newAmount);
         setCart(newCart);
         localStorage.setItem("cart", JSON.stringify(newCart));
+        let total = 0
+        let enoughInventory = []
+        for (let i = 0; i < newCart.length; i++) {
+          total = total + (newCart[i].price * newCart[i].quantity)
+          setTotal(total)
+          setShipping(total>500 ? 0 : 100 )
+          if(newCart[i].inventory<newCart[i].quantity) {
+            enoughInventory.push(false)
+          } else {
+            enoughInventory.push(true)
+          }
+        }
+        if(enoughInventory.includes(false)) {
+          setMamaste(true)
+        } else {
+          setMamaste(false)
+        }
     }
+
+    useEffect(() => {
+        console.log(cart)
+    }, [cart])
 
     const handleRemove = (productIdx) => {
         const newCart = [...cart];
+        console.log("handleRemove")
         newCart.splice(productIdx, 1);
         setCart(newCart);
         localStorage.setItem("cart", JSON.stringify(newCart));
+        setTotal(0)
+        setShipping(0)
+        let total = 0
+        let enoughInventory = []
+        for (let i = 0; i < newCart.length; i++) {
+          total = total + (newCart[i].price * newCart[i].quantity)
+          setTotal(total)
+          setShipping(total>500 ? 0 : 100 )
+          if(newCart[i].inventory<newCart[i].quantity) {
+            enoughInventory.push(false)
+          } else {
+            enoughInventory.push(true)
+          }
+        }
+        if(enoughInventory.includes(false)) {
+          setMamaste(true)
+        } else {
+          setMamaste(false)
+        }
     }
 
     return (
@@ -59,12 +103,12 @@ export default function Carrito({categories}) {
             </h2>
 
             <ul role="list" className="divide-y divide-gray-200 border-t border-b border-gray-200">
-              {productList.map((product, productIdx) => (
+              {cart[0] ? cart.map((product, productIdx) => (
                 <li key={product.id} className="flex py-6 sm:py-10">
                   <div className="flex-shrink-0">
                     <img
                       src={`/${product.id}_1.jpg`}
-                      alt={product.imageAlt}
+                      alt="Foto del producto"
                       className="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48"
                     />
                   </div>
@@ -89,11 +133,11 @@ export default function Carrito({categories}) {
                         <select
                           id={`quantity-${productIdx}`}
                           name={`quantity-${productIdx}`}
-                          className="px-3 max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-myblack focus:outline-none focus:ring-1 focus:ring-myblack sm:text-sm"
-                        defaultValue={cart[productIdx].quantity}
+                          className="w-[80px] max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-myblack focus:outline-none focus:ring-1 focus:ring-myblack sm:text-sm"
+                        defaultValue={localStorage.cart ? JSON.parse(localStorage.cart)[productIdx].quantity : null}
                             onChange={(e) => handleQuantityChange(e.target.value, productIdx)}
                         >
-                          {Array.from(Array(10).keys()).map((x) => ( 
+                          {Array.from(Array(10).keys()).map((x) => (
                                 <option key={x + 1} value={x + 1}>
                                     {x + 1}
                                 </option>
@@ -110,17 +154,17 @@ export default function Carrito({categories}) {
                     </div>
 
                     <p className="mt-4 flex space-x-2 text-sm text-gray-700">
-                      {product.inStock ? (
+                      {product.inventory >= product.quantity ? (
                         <CheckIcon className="h-5 w-5 flex-shrink-0 text-green-500" aria-hidden="true" />
                       ) : (
-                        <ClockIcon className="h-5 w-5 flex-shrink-0 text-gray-300" aria-hidden="true" />
+                        <XMarkIcon className="h-5 w-5 flex-shrink-0 text-red-500" aria-hidden="true" />
                       )}
 
-                      <span>{product.inStock ? 'En stock' : `No hay suficientes unidades`}</span>
+                      <span>{product.inventory >= product.quantity ? 'En stock' : `No hay suficientes unidades`}</span>
                     </p>
                   </div>
                 </li>
-              ))}
+              )) : <p className="text-center text-xl font-semibold my-12">No hay productos en el carrito</p>}
             </ul>
           </section>
 
@@ -153,12 +197,28 @@ export default function Carrito({categories}) {
             </dl>
 
             <div className="mt-6">
+              {mamaste ?
+              <button
+                disabled
+                className="cursor-pointer w-full rounded-md border border-transparent bg-zinc-500 py-3 px-4 text-base font-medium text-white shadow-sm hover:opacity-60 focus:outline-none focus:ring-2 focus:ring-myblack focus:ring-offset-2 focus:ring-offset-gray-50"
+              >
+                No tenemos suficientes unidades, intenta con menos productos
+              </button>
+              : cart.length===0 ?
+              <button
+              disabled
+              className="cursor-pointer w-full rounded-md border border-transparent bg-zinc-500 py-3 px-4 text-base font-medium text-white shadow-sm hover:opacity-60 focus:outline-none focus:ring-2 focus:ring-myblack focus:ring-offset-2 focus:ring-offset-gray-50"
+              >
+                No hay productos en el carrito
+              </button>
+              :
               <button
                 type="submit"
                 className="w-full rounded-md border border-transparent bg-myblack py-3 px-4 text-base font-medium text-white shadow-sm hover:opacity-60 focus:outline-none focus:ring-2 focus:ring-myblack focus:ring-offset-2 focus:ring-offset-gray-50"
               >
                 Continuar
               </button>
+              }
             </div>
           </section>
         </form>

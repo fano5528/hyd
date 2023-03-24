@@ -33,7 +33,11 @@ const productSchema = new mongoose.Schema({
     spectrum: {
         type: Array,
         required: false
-    }
+    },
+    inventory: {
+        type: Number,
+        required: true
+    },
 });
 
 export default mongoose.models.Product || mongoose.model('Product', productSchema);

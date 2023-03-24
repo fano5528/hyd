@@ -1,7 +1,7 @@
 import Header from "../../components/Header.component";
 import Card from "../../components/Card.component";
 import Footer from "../../components/Footer.component";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Disclosure, RadioGroup, Tab } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { HeartIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
@@ -14,12 +14,31 @@ function classNames(...classes) {
 
 export default function Products({ categories, productinfo }) {
     const { state, dispatch } = useContext(CartContext);
+    const [ canAdd, setCanAdd ] = useState(true);
+
+    useEffect(() => {
+        if(localStorage.cart) {
+          let cart = JSON.parse(localStorage.cart);
+          if(cart.find((product) => product.id === productinfo[0].id)) {
+            let product = cart.find((product) => product.id === productinfo[0].id)
+            if(product.quantity > 9) {
+              setCanAdd(false);
+            }
+          }
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log(canAdd)
+    }, [canAdd])
+
 
     let product = {
         name: productinfo[0].name,
         id: productinfo[0].id,
         price: `$${productinfo[0].price.toString()}`,
         description: productinfo[0].description,
+        inventory: productinfo[0].inventory,
         details: [
             {
                 name: "Ficha técnica",
@@ -46,7 +65,7 @@ export default function Products({ categories, productinfo }) {
     }
     
     const addToCartHandler = () => {
-        dispatch({type: "add_to_cart", payload: { id: product.id } });
+        dispatch({type: "add_to_cart", payload: { id: product.id, name: product.name, price: product.price, inventory: product.inventory } });
         window.location = "/carrito";
     }
 
@@ -133,6 +152,7 @@ export default function Products({ categories, productinfo }) {
                 {/* Colors */}
 
                 <div className="sm:flex-col1 mt-10 flex">
+                  {canAdd ? 
                   <button
                     type="submit"
                     onClick={(e)=>{e.preventDefault(); addToCartHandler()}}
@@ -140,6 +160,12 @@ export default function Products({ categories, productinfo }) {
                   >
                     agregar al carrito
                   </button>
+                  :
+                  <button
+                    disabled
+                    className="cursor-pointer flex flex-1 items-center justify-center rounded-md border border-transparent bg-zinc-500 py-3 px-8 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-myblack sm:w-full"
+                  >Has agregado la máxima cantidad posible</button>
+                  }
                 </div>
               </form>
 
