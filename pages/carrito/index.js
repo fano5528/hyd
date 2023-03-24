@@ -192,11 +192,11 @@ export default function Carrito({categories}) {
                   <a href="#" className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500">
                   </a>
                 </dt>
-                <dd className="text-sm font-medium text-gray-900">${shipping}</dd>
+                <dd className="text-sm font-medium text-gray-900">Gratis</dd>
               </div>
               <div className="flex items-center justify-between border-t border-gray-200 pt-4">
                 <dt className="text-base font-medium text-gray-900">Total a pagar</dt>
-                <dd className="text-base font-medium text-gray-900">${total + shipping}</dd>
+                <dd className="text-base font-medium text-gray-900">${total}</dd>
               </div>
             </dl>
 
