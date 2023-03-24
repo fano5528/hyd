@@ -4,6 +4,9 @@ import Footer from "../components/Footer.component";
 export default function Gracias({categories}) {
     return (
         <>
+            <Head>
+                <title>Gracias por tu compra | Hydronaut</title>
+            </Head>
             <Header categories={categories}/>
             <h1 className="text-2xl font-bold tracking-tight text-center sm:text-5xl sm:leading-snug leading-tight mt-12 sm:mt-20">
                 Gracias por tu compra
