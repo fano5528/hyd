@@ -1,8 +1,13 @@
 import Header from "../components/Header.component";
 import Footer from "../components/Footer.component";
 import Head from "next/head";
+import { useEffect } from "react";
 
 export default function Gracias({categories}) {
+    useEffect(() => {
+        localStorage.cart = JSON.stringify([])
+    }, [])
+
     return (
         <>
             <Head>
