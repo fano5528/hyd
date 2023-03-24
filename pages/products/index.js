@@ -22,7 +22,7 @@ export default function Products({ categories, products }) {
           </p>
         </div>
       </div>
-      <div className="w-sgrid sm:w-grid mx-auto mt-12 sm:mt-20 grid grid-cols-3 gap-10">
+      <div className="w-sgrid sm:w-grid mx-auto mt-12 sm:mt-20 grid md:grid-cols-3 gap-10">
         {products.map((product, productIdx) => (
             <Card
                 key={productIdx}
