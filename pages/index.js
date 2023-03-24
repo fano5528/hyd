@@ -40,9 +40,9 @@ export default function Home({categories}) {
             <img
               src="/versatiles.jpg"
               alt="Two models wearing women's black cotton crewneck tee and off-white cotton crewneck tee."
-              className="object-cover object-center group-hover:opacity-75"
+              className="object-cover object-center group-hover:opacity-75 rounded-3xl"
             />
-            <div aria-hidden="true" className="bg-gradient-to-b from-transparent to-black opacity-50" />
+            <div aria-hidden="true" className="rounded-3xl bg-gradient-to-b from-transparent to-black opacity-50" />
             <div className="flex items-end p-6">
               <div>
                 <h3 className="font-semibold text-xl text-white">
@@ -61,11 +61,11 @@ export default function Home({categories}) {
             <img
               src="/verdes.jpg"
               alt="Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters."
-              className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
+              className="rounded-3xl object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
             />
             <div
               aria-hidden="true"
-              className="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"
+              className="rounded-3xl bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"
             />
             <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
@@ -85,11 +85,11 @@ export default function Home({categories}) {
             <img
               src="/frutas.jpg"
               alt="Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
-              className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
+              className="rounded-3xl object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
             />
             <div
               aria-hidden="true"
-              className="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"
+              className="rounded-3xl bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"
             />
             <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
