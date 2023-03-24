@@ -24,7 +24,7 @@ export default async function handler(req,res) {
         names[products[i].description] = products[i].quantity
         message += products[i].quantity + 'x '+ products[i].description + '\n'
     }
-    console.log(message)
+    const direccion = 'Nombre: ' + session.shipping_details.name + '\n' + 'Correo: ' + session.customer_details.email + '\n' + 'Teléfono: ' + session.customer_details.phone + '\n' + 'Calle y número: ' + session.shipping_details.address.line1 + '\n' + 'Código Postal:' + session.shipping_details.address.postal_code + '\n' + 'Estado: ' + session.shipping_details.address.state + '\n' + 'Ciudad: ' + session.shipping_details.address.city + '\n' + 'Colonia:' + session.shipping_details.address.line2
     Order.create({
         customerName: session.shipping_details.name,
         customerEmail: session.customer_details.email,
@@ -39,13 +39,13 @@ export default async function handler(req,res) {
         to: session.customer_details.email,
         from: 'ventas@hydronaut.mx',
         subject: 'Confirmación de tu pedido',
-        text: session.shipping_details.name + ',\n\nGracias por tu compra en Hydronaut. Tu pedido ha sido recibido y será procesado en breve.\n\nPara confirmar, te estaremos enviando: \n' + message + '\n\n' + 'Tu número de pedido es: ' + session.id + '\n\nSi tienes alguna pregunta, por favor no dudes en contactarnos respondiendo a este correo.\n\nSaludos,\n\nHydronaut',
+        text: session.shipping_details.name + ',\n\nGracias por tu compra en Hydronaut. Tu pedido ha sido recibido y será procesado en breve.\n\nPara confirmar, te estaremos enviando: \n' + message + '\n\n' + 'El pedido se enviará a: ' + direccion + '\n\nSi tienes alguna pregunta, por favor no dudes en contactarnos respondiendo a este correo.\n\nSaludos,\n\nHydronaut',
     }
     const msg2 = {
         to: 'ops@hydronaut.mx',
         from: 'ventas@hydronaut.mx',
         subject: 'Nuevo pedido',
-        text: 'Para enviar: \n' + message + '\n\n' + 'Nombre: ' + session.shipping_details.name + '\n' + 'Correo: ' + session.customer_details.email + '\n' + 'Teléfono: ' + session.customer_details.phone + '\n' + 'Calle y número: ' + session.shipping_details.address.line1 + '\n' + 'Código Postal:' + session.shipping_details.address.postal_code + '\n' + 'Estado: ' + session.shipping_details.address.state + '\n' + 'Ciudad: ' + session.shipping_details.address.state + '\n' + 'Colonia:' + session.shipping_details.address.line2  + '\n\n' + 'Total: ' + session.amount_total/100,
+        text: 'Para enviar: \n' + message + '\n\n' + 'Nombre: ' + session.shipping_details.name + '\n' + 'Correo: ' + session.customer_details.email + '\n' + 'Teléfono: ' + session.customer_details.phone + '\n' + 'Calle y número: ' + session.shipping_details.address.line1 + '\n' + 'Código Postal:' + session.shipping_details.address.postal_code + '\n' + 'Estado: ' + session.shipping_details.address.state + '\n' + 'Ciudad: ' + session.shipping_details.address.city + '\n' + 'Colonia:' + session.shipping_details.address.line2  + '\n\n' + 'Total: ' + session.amount_total/100,
     }
 
     sgMail.send(msg)
