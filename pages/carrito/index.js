@@ -4,6 +4,7 @@ import Footer from '../../components/Footer.component'
 import { CheckIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import Head from 'next/head'
 import Cookies from 'cookies'
+import Router from 'next/router'
 
 export default function Carrito({categories, productsFetched}) {
     const [cart, setCart] = useState([]);
@@ -14,30 +15,38 @@ export default function Carrito({categories, productsFetched}) {
 
     useEffect(() => {
         let parsedCart = null
-        localStorage.cart ? parsedCart = JSON.parse(localStorage.cart) : "";
-        if(true && parsedCart) {
-          console.log(productsFetched)
+        let docCookie = eval(document.cookie.slice(5))
+        if(!docCookie && localStorage.cart) {
+          document.cookie = "cart="+localStorage.cart + ";path=/carrito"
+          Router.reload()
+        }
+        if(docCookie && !localStorage.cart) {
+          localStorage.setItem("cart", JSON.stringify(docCookie))
+          Router.reload()
+        }
+        if(docCookie && localStorage.cart) {
+          localStorage.setItem("cart", JSON.stringify(docCookie))
+        }
+        if(localStorage.cart) {
+          parsedCart = JSON.parse(localStorage.cart)
           for (let i = 0; i < productsFetched.length; i++) {
             let product = productsFetched[i][0]
             parsedCart[i].inventory = product.inventory
           }
-        }
-        localStorage.cart ? setCart(parsedCart) : "";
-
-        if (parsedCart) {
-            let total = 0
-            for (let i = 0; i < parsedCart.length; i++) {
-              let product = parsedCart[i]
-              total = total + (product.price * product.quantity)
-              setTotal(total)
-              setShipping(total>500 ? 0 : 100 )
-              if(product.inventory<product.quantity) {
-                setMamaste(true)
-              }
-            }
-        } else {
-            setTotal(0)
+          setCart(parsedCart)
+          let total = 0
+          for (let i = 0; i < parsedCart.length; i++) {
+            let product = parsedCart[i]
+            total = total + (product.price * product.quantity)
+            setTotal(total)
             setShipping(0)
+            if(product.inventory<product.quantity) {
+              setMamaste(true)
+            }
+          }
+        } else {
+          setTotal(0)
+          setShipping(0)
         }
     }, [])
 
@@ -45,7 +54,8 @@ export default function Carrito({categories, productsFetched}) {
         const newCart = [...cart];
         newCart[productIdx].quantity = eval(newAmount);
         setCart(newCart);
-        localStorage.setItem("cart", JSON.stringify(newCart));
+        localStorage.setItem("cart", JSON.stringify(newCart))
+        document.cookie = "cart="+JSON.stringify(newCart) + ";path=/carrito"
         let total = 0
         let enoughInventory = []
         for (let i = 0; i < newCart.length; i++) {
@@ -70,6 +80,7 @@ export default function Carrito({categories, productsFetched}) {
         newCart.splice(productIdx, 1);
         setCart(newCart);
         localStorage.setItem("cart", JSON.stringify(newCart));
+        document.cookie = "cart="+JSON.stringify(newCart) + ";path=/carrito"
         setTotal(0)
         setShipping(0)
         let total = 0
@@ -243,15 +254,12 @@ export async function getServerSideProps({req,res}) {
     const categoriesJson = await categories.json();
     const cookies = new Cookies(req,res);
     let cart = eval(cookies.get("cart"))
-    console.log(cart)
     const length = cart ? cart.length : 0;
-    console.log(length)
     let productsFetched = [];
     for (let i = 0; i < length; i++) {
       const product = await fetch(`https://hydronaut.mx/api/product/${cart[i].id}`);
       const productJson = await product.json();
       productsFetched.push(productJson);
     }
-    console.log(productsFetched)
     return { props: { categories: categoriesJson, productsFetched: productsFetched } };
   }

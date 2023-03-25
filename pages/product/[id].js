@@ -7,7 +7,7 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { HeartIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { CartContext } from "../../context/cartContext";
 import Head from "next/head";
-import { cookies } from "next/headers"
+import Cookies from "cookies"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -16,6 +16,7 @@ function classNames(...classes) {
 export default function Products({ categories, productinfo }) {
     const { state, dispatch } = useContext(CartContext);
     const [ canAdd, setCanAdd ] = useState(true);
+    const [ inStock, setInStock ] = useState(true);
 
     useEffect(() => {
         if(localStorage.cart) {
@@ -27,12 +28,10 @@ export default function Products({ categories, productinfo }) {
             }
           }
         }
+        if(productinfo[0].inventory<1) {
+          setInStock(false);
+        }
     }, [])
-
-    useEffect(() => {
-        console.log(canAdd)
-    }, [canAdd])
-
 
     let product = {
         name: productinfo[0].name,
@@ -154,7 +153,7 @@ export default function Products({ categories, productinfo }) {
                 {/* Colors */}
 
                 <div className="sm:flex-col1 mt-10 flex">
-                  {canAdd ? 
+                  {canAdd ? inStock ?
                   <button
                     type="submit"
                     onClick={(e)=>{e.preventDefault(); addToCartHandler()}}
@@ -162,6 +161,11 @@ export default function Products({ categories, productinfo }) {
                   >
                     agregar al carrito
                   </button>
+                  :
+                  <button
+                    disabled
+                    className="cursor-pointer flex flex-1 items-center justify-center rounded-md border border-transparent bg-zinc-500 py-3 px-8 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-myblack sm:w-full"
+                  >El producto no está en stock</button>
                   :
                   <button
                     disabled
@@ -231,7 +235,7 @@ export default function Products({ categories, productinfo }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ req, res, params }) {
   const categories = await fetch("https://hydronaut.mx/api/categories");
   const categoriesJson = await categories.json();
   const product = await fetch("https://hydronaut.mx/api/product/" + params.id);
