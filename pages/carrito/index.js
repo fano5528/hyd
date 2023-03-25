@@ -33,6 +33,7 @@ export default function Carrito({categories, productsFetched}) {
             for (let i = 0; i < productsFetched.length; i++) {
               let product = productsFetched[i][0]
               parsedCart[i].inventory = product.inventory
+              parsedCart[i].price = product.price
             }
           }
           setCart(parsedCart)
