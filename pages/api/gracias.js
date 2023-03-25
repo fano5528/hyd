@@ -1,3 +1,3 @@
 export default async function handler(req, res) {
-    res(200).json({hola: 'mundo cruel'})
+    return res.status(200).json({hola: 'mundo cruel'})
 }
