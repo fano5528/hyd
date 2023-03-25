@@ -133,9 +133,9 @@ export default function Home({categories}) {
     </div>
     <h1 className="mt-12 sm:mt-20 text-center text-2xl font-semibold">Nuestros focos más vendidos</h1>
     <div className="w-sgrid sm:w-grid mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 mt-4 sm:mt-6">
-      <Card img="/foco.jpg" name="Foco perrón" price="499" id="price_1Mp388J8K7osZc8AWKgqecR6"/>
-      <Card img="/foco.jpg" name="test" price="1" id="price_1Mp36jJ8K7osZc8A0LxNVBMU"/>
-      <Card img="/foco.jpg" name="Foco perrón" price="499" id="price_1Mp388J8K7osZc8AWKgqecR6"/>
+      <Card img="/foco.jpg" name="El foco más perrón" price="999" id="price_1MpN9wJ8K7osZc8AweBLDNnY"/>
+      <Card img="/foco.jpg" name="test" price="599" id="price_1MpN9OJ8K7osZc8A4Le9g6i2"/>
+      <Card img="/foco.jpg" name="El foco más perrón" price="999" id="price_1MpN9wJ8K7osZc8AweBLDNnY"/>
     </div>
     <Link href="/products" className="flex items-center justify-center bg-myblack text-ow mx-auto block w-64 py-4 text-lg text-center rounded-xl mt-6 sm:mt-10 hover:opacity-60">
       ver todos los focos
