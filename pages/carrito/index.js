@@ -29,7 +29,7 @@ export default function Carrito({categories, productsFetched}) {
         }
         if(localStorage.cart) {
           parsedCart = JSON.parse(localStorage.cart)
-          if(productsFetched[0][0].inventory) {
+          if(productsFetched[0][0]) {
             for (let i = 0; i < productsFetched.length; i++) {
               let product = productsFetched[i][0]
               parsedCart[i].inventory = product.inventory
@@ -263,5 +263,6 @@ export async function getServerSideProps({req,res}) {
       const productJson = await product.json();
       productsFetched.push(productJson);
     }
+    console.log(productsFetched)
     return { props: { categories: categoriesJson, productsFetched: productsFetched } };
   }
