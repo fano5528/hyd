@@ -29,9 +29,11 @@ export default function Carrito({categories, productsFetched}) {
         }
         if(localStorage.cart) {
           parsedCart = JSON.parse(localStorage.cart)
-          for (let i = 0; i < productsFetched.length; i++) {
-            let product = productsFetched[i][0]
-            parsedCart[i].inventory = product.inventory
+          if(productsFetched[0][0].inventory) {
+            for (let i = 0; i < productsFetched.length; i++) {
+              let product = productsFetched[i][0]
+              parsedCart[i].inventory = product.inventory
+            }
           }
           setCart(parsedCart)
           let total = 0
