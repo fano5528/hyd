@@ -50,7 +50,7 @@ export default async function handler(req,res) {
         text: 'Para enviar: \n' + message + '\n\n' + 'Nombre: ' + session.shipping_details.name + '\n' + 'Correo: ' + session.customer_details.email + '\n' + 'Teléfono: ' + session.customer_details.phone + '\n' + 'Calle y número: ' + session.shipping_details.address.line1 + '\n' + 'Código Postal: ' + session.shipping_details.address.postal_code + '\n' + 'Estado: ' + session.shipping_details.address.state + '\n' + 'Ciudad: ' + session.shipping_details.address.city + '\n' + 'Colonia: ' + session.shipping_details.address.line2  + '\n\n' + 'Total: $' + session.amount_total/100,
     }
 
-    //sgMail.send(msg)
-    //sgMail.send(msg2)
+    sgMail.send(msg)
+    sgMail.send(msg2)
     res.status(200).redirect('https://hydronaut.mx/gracias')
 }

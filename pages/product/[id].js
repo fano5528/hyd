@@ -7,6 +7,7 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { HeartIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { CartContext } from "../../context/cartContext";
 import Head from "next/head";
+import { cookies } from "next/headers"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -66,6 +67,7 @@ export default function Products({ categories, productinfo }) {
     
     const addToCartHandler = () => {
         dispatch({type: "add_to_cart", payload: { id: product.id, name: product.name, price: product.price, inventory: product.inventory } });
+        //set cookie with cart
         window.location = "/carrito";
     }
 

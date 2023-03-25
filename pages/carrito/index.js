@@ -3,8 +3,9 @@ import Header from '../../components/Header.component'
 import Footer from '../../components/Footer.component'
 import { CheckIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import Head from 'next/head'
+import Cookies from 'cookies'
 
-export default function Carrito({categories}) {
+export default function Carrito({categories, productsFetched}) {
     const [cart, setCart] = useState([]);
     const [productList, setProductList] = useState([]);
     const [total, setTotal] = useState(0);
@@ -12,11 +13,21 @@ export default function Carrito({categories}) {
     const [mamaste, setMamaste] = useState(false);
 
     useEffect(() => {
-        localStorage.cart ? setCart(JSON.parse(localStorage.cart)) : console.log("No hay productos en el carrito.");
-        if (localStorage.cart) {
+        let parsedCart = null
+        localStorage.cart ? parsedCart = JSON.parse(localStorage.cart) : "";
+        if(true && parsedCart) {
+          console.log(productsFetched)
+          for (let i = 0; i < productsFetched.length; i++) {
+            let product = productsFetched[i][0]
+            parsedCart[i].inventory = product.inventory
+          }
+        }
+        localStorage.cart ? setCart(parsedCart) : "";
+
+        if (parsedCart) {
             let total = 0
-            for (let i = 0; i < JSON.parse(localStorage.cart).length; i++) {
-              let product = JSON.parse(localStorage.cart)[i]
+            for (let i = 0; i < parsedCart.length; i++) {
+              let product = parsedCart[i]
               total = total + (product.price * product.quantity)
               setTotal(total)
               setShipping(total>500 ? 0 : 100 )
@@ -31,7 +42,6 @@ export default function Carrito({categories}) {
     }, [])
 
     const handleQuantityChange = (newAmount, productIdx) => {
-      console.log("handlequantitychange")
         const newCart = [...cart];
         newCart[productIdx].quantity = eval(newAmount);
         setCart(newCart);
@@ -55,13 +65,8 @@ export default function Carrito({categories}) {
         }
     }
 
-    useEffect(() => {
-        console.log(cart)
-    }, [cart])
-
     const handleRemove = (productIdx) => {
         const newCart = [...cart];
-        console.log("handleRemove")
         newCart.splice(productIdx, 1);
         setCart(newCart);
         localStorage.setItem("cart", JSON.stringify(newCart));
@@ -233,8 +238,20 @@ export default function Carrito({categories}) {
     )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({req,res}) {
     const categories = await fetch("https://hydronaut.mx/api/categories");
     const categoriesJson = await categories.json();
-    return { props: { categories: categoriesJson } };
+    const cookies = new Cookies(req,res);
+    let cart = eval(cookies.get("cart"))
+    console.log(cart)
+    const length = cart ? cart.length : 0;
+    console.log(length)
+    let productsFetched = [];
+    for (let i = 0; i < length; i++) {
+      const product = await fetch(`https://hydronaut.mx/api/product/${cart[i].id}`);
+      const productJson = await product.json();
+      productsFetched.push(productJson);
+    }
+    console.log(productsFetched)
+    return { props: { categories: categoriesJson, productsFetched: productsFetched } };
   }

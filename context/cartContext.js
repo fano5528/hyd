@@ -17,11 +17,12 @@ const reducer = (state, action) => {
                     item.id === existItem.id ? {id: item.id, name: item.name, price: item.price, quantity: item.quantity + 1, inventory: item.inventory} : item
                 );
                 localStorage.setItem("cart", JSON.stringify(cartItems));
+                document.cookie = "cart=" + JSON.stringify(cartItems) + ";path=/carrito"
                 return {...state, cart: {cartItems}}
             } else {
                 const cartItems = [...localCart, {id: newItem.id, name: newItem.name, price: eval(newItem.price.slice(1)), quantity: 1, inventory: newItem.inventory}];
-                console.log(cartItems)
                 localStorage.setItem("cart", JSON.stringify(cartItems));
+                document.cookie = "cart=" + JSON.stringify(cartItems) + ";path=/carrito"
                 return {...state, cart: {cartItems}}
             }
         }
