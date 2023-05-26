@@ -61,7 +61,7 @@ export default function Products({ categories, productinfo }) {
     if(productinfo[0].watts) {
         product.details[0].items.push("Wattage: "+productinfo[0].watts.toString()+"W")
     }
-    if(productinfo[0].voltaje) {
+    if(productinfo[0].voltage) {
         product.details[0].items.push("Voltaje: "+productinfo[0].voltage)
     }
     if(productinfo[0].length) {
@@ -159,7 +159,7 @@ export default function Products({ categories, productinfo }) {
                     <img
                       src={image.src}
                       alt={image.alt}
-                      className="h-full w-full object-cover object-center sm:rounded-lg"
+                      className="h-full w-full object-contain object-center sm:rounded-lg"
                     />
                   </Tab.Panel>
                 ))}
