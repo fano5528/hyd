@@ -55,6 +55,8 @@ export default function Products({ categories, productinfo }) {
             // More images...
           ],
     }
+
+    const title = product.name + " | Hydronaut"
     if(productinfo[0].technicalname) {
         product.details[0].items.push("Nombre técnico: "+productinfo[0].technicalname)
     }
@@ -112,7 +114,7 @@ export default function Products({ categories, productinfo }) {
   return (
     <>
       <Head>
-        <title>{product.name} | Hydronaut</title>
+        <title>{title}</title>
         <meta name="description" content={product.description} />
       </Head>
       <Header categories={categories} />
