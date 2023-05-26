@@ -41,9 +41,8 @@ export default function Products({ categories, productinfo }) {
         inventory: productinfo[0].inventory,
         details: [
             {
-                name: "Ficha técnica",
+                name: "Aspectos técnicos",
                 items: [
-                    "Wattage: "+productinfo[0].watts.toString()+"W",
                 ]
             }
         ],
@@ -56,6 +55,46 @@ export default function Products({ categories, productinfo }) {
             // More images...
           ],
     }
+    if(productinfo[0].technicalname) {
+        product.details[0].items.push("Nombre técnico: "+productinfo[0].technicalname)
+    }
+    if(productinfo[0].watts) {
+        product.details[0].items.push("Wattage: "+productinfo[0].watts.toString()+"W")
+    }
+    if(productinfo[0].voltaje) {
+        product.details[0].items.push("Voltaje: "+productinfo[0].voltage)
+    }
+    if(productinfo[0].length) {
+        product.details[0].items.push("Largo: "+productinfo[0].length.toString()+"mm")
+    }
+    if(productinfo[0].width) {
+        product.details[0].items.push("Ancho: "+productinfo[0].width.toString()+"mm")
+    }
+    if(productinfo[0].height) {
+        product.details[0].items.push("Alto: "+productinfo[0].height.toString()+"mm")
+    }
+    if(productinfo[0].lumens) {
+        product.details[0].items.push("Lumens: "+productinfo[0].lumens.toString()+"lm")
+    }
+    if(productinfo[0].ledtype) {
+        product.details[0].items.push("Tipo de LED: "+productinfo[0].ledtype)
+    }
+    if(productinfo[0].irc) {
+        product.details[0].items.push("IRC: "+productinfo[0].irc.toString())
+    }
+    if(productinfo[0].spectrum) {
+        product.details[0].items.push("Espectro: "+productinfo[0].spectrum)
+    }
+    if(productinfo[0].lifetime) {
+        product.details[0].items.push("Vida útil: "+productinfo[0].lifetime.toString()+" horas")
+    }
+    if(productinfo[0].diameter) {
+        product.details[0].items.push("Diámetro: "+productinfo[0].diameter)
+    }
+    if(productinfo[0].ip) {
+        product.details[0].items.push("Índice de protección: "+productinfo[0].ip)
+    }
+
     for (let i = 2; i <= productinfo[0].imgs; i++) {
         product.images.push({
             id: i,

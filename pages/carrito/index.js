@@ -128,10 +128,10 @@ export default function Carrito({categories, productsFetched}) {
                 <input type="hidden" value={product.id} name={`id${productIdx}`} />
                 <li key={product.id} className="flex py-6 sm:py-10">
                   <div className="flex-shrink-0">
-                    <img
-                      src={`/${product.id}_1.jpg`}
+                    <div
+                      style={{backgroundImage: `url('/${product.id}_1.jpg')`}}
                       alt="Foto del producto"
-                      className="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48"
+                      className="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48 bg-center bg-contain bg-white bg-no-repeat"
                     />
                   </div>
 
